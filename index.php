@@ -1,13 +1,22 @@
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jeneration Web Development | Specializing in Drupal and Backdrop CMS</title>
-</head>
-<body>
-<p class="big thin">
-My name is Jennifer Lea Lampton, and I've been in the website business since the 90s. I believe in empowering all people to manage their own web presence. If I'm doing my job well, then you shouldn't need me at all.</p>
+<?php
 
-        <p><a href="#work" class="button outline smoothscroll">View my work</a></p>
-</body>
-</html>
+/**
+ * @file
+ * The PHP page that serves all page requests on a Drupal installation.
+ *
+ * All Drupal code is released under the GNU General Public License.
+ * See COPYRIGHT.txt and LICENSE.txt files in the "core" directory.
+ */
+
+use Drupal\Core\DrupalKernel;
+use Symfony\Component\HttpFoundation\Request;
+
+$autoloader = require_once 'autoload.php';
+
+$kernel = new DrupalKernel('prod', $autoloader);
+
+$request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$response->send();
+
+$kernel->terminate($request, $response);
